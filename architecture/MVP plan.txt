@@ -1,0 +1,13 @@
+Architektura: 
+https://miro.com/app/board/uXjVL5vNG4U=/
+
+taby:
+wybor jezyka
+1.Kalendarz
+2.Raport/Statystyki
+3.Klienci
+4.Marketing sms/email
+5.Karty podarunkowe/ pakiety
+6.Pracownicy
+7.Uslugi
+
