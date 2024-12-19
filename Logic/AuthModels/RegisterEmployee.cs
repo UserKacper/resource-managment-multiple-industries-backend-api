@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 
-namespace resource_manager_db.Models
+namespace resource_mangment.Logic.AuthModels
 {
-    public class Employee : IdentityUser<string>
+    public class RegisterEmployee
     {
         [Required]
         public string Name { get; set; }
@@ -31,14 +30,13 @@ namespace resource_manager_db.Models
         public string PhoneNumber { get; set; }
 
         [Required]
-        public string CompanyID { get; set; }
-
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        public DateTime CreationDate { get; set; }
-        public Company Company { get; set; }
+        public DateTime? CreationDate { get; set; }
+
+        [Required]
+        public string Password { get; set; }
     }
 }

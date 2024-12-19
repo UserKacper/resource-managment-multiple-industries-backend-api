@@ -4,13 +4,13 @@ using resource_manager_db.Models;
 
 namespace resource_manager_db.Db_connector
 {
-    public class DbConnector : IdentityDbContext<Employee, Role, string> 
+    public class Database_ctx : IdentityDbContext<Employee, Role, string> 
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Role> Roles { get; set; }
 
-        public DbConnector (DbContextOptions<DbConnector> options) : base(options)
+        public Database_ctx (DbContextOptions<Database_ctx> options) : base(options)
         {
         }
 
