@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using resource_manager_db.Db_connector;
 using resource_mangment.Logic.AuthModels;
 using resource_mangment.Logic.ServerResponseModel;
@@ -24,14 +25,18 @@ namespace resource_mangment.Logic.Services.ASRegisterErrorHandling
                 {
                     return new ServerStatusResponse
                     {
-                        Message = "Firma z takim NIPem juz istnieje.",
+                        Message = "Firma z takim nipem juz istnieje.",
                         Success = false,
-                        Title = "Firma z podanym Nipem juz jest zarejestrowana",
+                        Title = "Firma z podanym nipem juz jest zarejestrowana",
                         CurrentStatus = Status.Finished.ToString(),
                         StatusCode = System.Net.HttpStatusCode.Conflict,
                     };
                 }
-                if (await CheckIfOwnerEmailIsAlreadyRegistered(registerCompanyAndOwner.Email))
+                if (
+                    await CheckIfApplicationUserEmailIsAlreadyRegistered(
+                        registerCompanyAndOwner.Email
+                    )
+                )
                 {
                     return new ServerStatusResponse
                     {
@@ -58,7 +63,7 @@ namespace resource_mangment.Logic.Services.ASRegisterErrorHandling
             }
         }
 
-        async Task<bool> CheckICompanyAlreadyExist(string NIP)
+        public async Task<bool> CheckICompanyAlreadyExist(string NIP)
         {
             try
             {
@@ -75,7 +80,7 @@ namespace resource_mangment.Logic.Services.ASRegisterErrorHandling
             }
         }
 
-        async Task<bool> CheckIfOwnerEmailIsAlreadyRegistered(string Email)
+        async Task<bool> CheckIfApplicationUserEmailIsAlreadyRegistered(string Email)
         {
             try
             {

@@ -27,8 +27,8 @@ namespace resource_mangment.Logic.Services
         public bool VerifyPassword(string password, string passwordHash)
         {
             string[] parts = passwordHash.Split('-');
-            byte[] hash = Convert.FromHexString(parts[0]);
-            byte[] salt = Convert.FromHexString(parts[1]);
+            byte[] hash = Convert.FromHexString(parts[0].Trim());
+            byte[] salt = Convert.FromHexString(parts[1].Trim());
 
             byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(
                 password,

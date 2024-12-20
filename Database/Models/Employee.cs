@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace resource_manager_db.Models
 {
-    public class Employee : IdentityUser<string>
+    public class Employee : IdentityUser
     {
         [Required]
         public string Name { get; set; }
@@ -34,11 +34,7 @@ namespace resource_manager_db.Models
         public string CompanyID { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
         public Company Company { get; set; }
     }
 }

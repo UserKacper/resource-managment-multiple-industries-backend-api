@@ -22,16 +22,34 @@ namespace resource_mangment.Controllers
         [HttpPost("Login")]
         public async Task<ServerStatusResponse> Login([FromBody] LoginRequest loginRequest)
         {
-            try
+            if (ModelState.IsValid == false)
             {
+                var errorMessages = string.Join(
+                    ", ",
+                    ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
+                );
                 return new ServerStatusResponse
                 {
-                    Message = "Firma zosta³a pomyœlnie za³o¿ona",
+                    Message = errorMessages,
                     Success = false,
-                    Title = "Firma zosta³a pomyœlnie za³o¿ona",
+                    Title = "Validation Failed",
                     CurrentStatus = Status.Finished.ToString(),
-                    StatusCode = HttpStatusCode.Conflict,
-                    Token = "",
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Token = null,
+                };
+            }
+            try
+            {
+                var login = await _authService.LoginAsync(loginRequest);
+
+                return new ServerStatusResponse
+                {
+                    Message = login.Value.Message,
+                    Success = login.Value.Success,
+                    Title = login.Value.Title,
+                    CurrentStatus = login.Value.CurrentStatus,
+                    StatusCode = login.Value.StatusCode,
+                    Token = login.Value.Token,
                 };
             }
             catch (Exception)
@@ -45,6 +63,22 @@ namespace resource_mangment.Controllers
             [FromBody] RegisterCompanyAndOwner registerCompanyAndOwner
         )
         {
+            if (ModelState.IsValid == false)
+            {
+                var errorMessages = string.Join(
+                    ", ",
+                    ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
+                );
+                return new ServerStatusResponse
+                {
+                    Message = errorMessages,
+                    Success = false,
+                    Title = "Validation Failed",
+                    CurrentStatus = Status.Finished.ToString(),
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Token = null,
+                };
+            }
             try
             {
                 var registerCompany = await _authService.RegisterCompanyAndOwnerAsync(

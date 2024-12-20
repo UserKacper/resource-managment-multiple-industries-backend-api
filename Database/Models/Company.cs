@@ -10,13 +10,13 @@ namespace resource_manager_db.Models
     public class Company
     {
         [Required, Key]
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required, MaxLength(32)]
         public string Name { get; set; }
 
         [Required]
-        public DateTime EstablishmentDate { get; set; }
+        public DateTime EstablishmentDate { get; set; } = DateTime.UtcNow;
 
         [Required]
         public Industry Industry { get; set; }

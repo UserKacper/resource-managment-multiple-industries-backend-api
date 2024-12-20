@@ -32,7 +32,5 @@ namespace resource_manager_db.Db_connector
 
             modelBuilder.Entity<Employee>().HasIndex(e => e.Email).IsUnique();
         }
-
-        public static void ConfigureRoles(this ModelBuilder modelBuilder) { }
     }
 }

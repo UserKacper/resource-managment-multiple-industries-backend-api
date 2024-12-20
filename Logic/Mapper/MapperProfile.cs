@@ -12,6 +12,8 @@ namespace resource_mangment.Logic.Mapper
             CreateMap<RegisterCompanyAndOwner, Company>();
             CreateMap<RegisterCompanyAndOwner, Employee>();
             CreateMap<RegisterCompanyAndOwner, JwtGenerationAccountModel>();
+
+            CreateMap<Employee, JwtGenerationAccountModel>();
         }
     }
 }

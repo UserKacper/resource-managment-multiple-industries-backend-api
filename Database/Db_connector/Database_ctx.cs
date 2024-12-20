@@ -1,31 +1,30 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using resource_manager_db.Models;
 
 namespace resource_manager_db.Db_connector
 {
-    public class Database_ctx : IdentityDbContext<Employee, Role, string> 
+    public class Database_ctx : IdentityDbContext<Employee, IdentityRole, string>
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<IdentityRole> Roles { get; set; }
 
-        public Database_ctx (DbContextOptions<Database_ctx> options) : base(options)
-        {
-        }
+        public Database_ctx(DbContextOptions<Database_ctx> options)
+            : base(options) { }
 
-        protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
         }
-  
-        protected override void OnModelCreating (ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ConfigureCompany(); 
+            modelBuilder.ConfigureCompany();
             modelBuilder.ConfigureEmployee();
-            modelBuilder.ConfigureRoles();
         }
     }
 }
